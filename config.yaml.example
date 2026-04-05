@@ -1,0 +1,40 @@
+# ============================================
+# CONFIGURACIÓN DEL SCRAPER - Buscalibre Perú
+# ============================================
+# Copia este archivo como config.yaml y completa los valores
+
+# Configuración de Telegram
+telegram:
+  # Token del bot (obténlo de @BotFather en Telegram)
+  bot_token: "TU_BOT_TOKEN_AQUI"
+  # Tu chat_id (obténlo de @userinfobot)
+  chat_id: "TU_CHAT_ID_AQUI"
+
+# Configuración del scraper
+scraper:
+  # URL base de la página a scrapear
+  base_url: "https://www.buscalibre.pe/libros-envio-express-peru_t.html"
+  # Número de páginas a scrapear
+  pages: 5
+  # Número máximo de reintentos si falla una solicitud
+  max_retries: 3
+  # Timeout en segundos para cada solicitud
+  timeout: 30
+  # User-Agent para las solicitudes
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+# Configuración de salida
+output:
+  # Directorio donde se guardarán los archivos Excel
+  directory: "./output"
+  # Prefijo del nombre del archivo
+  filename_prefix: "buscalibre"
+
+# Configuración del programador (opcional)
+scheduler:
+  # Habilitar ejecución automática
+  enabled: false
+  # Hora de ejecución (formato 24 horas)
+  hour: 9
+  # Minuto de ejecución
+  minute: 0
