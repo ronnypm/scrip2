@@ -21,10 +21,11 @@ build/
 # Logs
 *.log
 
-# Entorno local
+# Config sensible - NO SUBIR
 .env
+config.yaml
 
-# Excel outputs
+# Python
 output/
 *.xlsx
 
