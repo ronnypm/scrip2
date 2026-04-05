@@ -1,0 +1,40 @@
+name: Daily Buscalibre Scraper
+
+on:
+  schedule:
+    # 10:00 AM hora Perú (UTC-5 = 15:00 UTC)
+    - cron: '0 15 * * *'
+  workflow_dispatch:  # Para ejecutar manualmente
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Trigger Railway scraper
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+        run: |
+          # Instalar Railway CLI
+          curl -Ls https://railway.app/nix | sh
+          
+          # Trigger el endpoint /scrape
+          curl -X POST "https://${{ secrets.RAILWAY_APP_URL }}/scrape"
+        continue-on-error: true
+
+      - name: Report failure
+        if: failure()
+        run: echo "Scraper failed, check Railway logs"
